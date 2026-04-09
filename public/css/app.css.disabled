@@ -1,0 +1,155 @@
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #1C1C1C;
+}
+
+/* Header */
+
+.header {
+    background: #F9F9F9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 60px;
+    position: sticky; /* ubah dari sticky ke fixed */
+    top: 0; /* menempel di atas */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* supaya di atas elemen lain */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 0; /* hapus radius supaya rapi di atas */
+}   
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #1C1C1C;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #b8860b; /* emas */
+}
+
+/* Hero */
+/* Hero structure */
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background image (dipisahkan agar blur hanya di sini) */
+.hero-bg {
+    background: url('/images/bg-hero.jpg') center/cover no-repeat;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transition: filter 0.6s ease;
+}
+
+/* Overlay warna di atas background */
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.45);
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(3px);
+}
+
+/* Box teks */
+.hero-text-box {
+    background: #f0bb3f90;
+    padding: 26px 400px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    z-index: 2; /* pastikan di atas overlay */
+    position: relative;
+}
+
+/* Efek fade pada teks */
+.hero h1 {
+    font-size: 2.6rem;
+    text-shadow: 2px 4px 2px rgba(0, 0, 0, 0.33);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hero p {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: #fff;
+}
+
+.hero.fade h1 {
+    opacity: 0.5;
+    transform: scale(0.97);
+}
+
+/* Blur hanya background, bukan teks */
+.hero.blurred .hero-bg {
+    filter: blur(8px) brightness(0.9);
+}
+
+/* About Section */
+.about {
+    padding: 60px 0;
+    background: #fff8dc;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    text-align: center;
+}
+
+.about-item h3 {
+    color: #b8860b;
+}
+
+/* Profil Section */
+.profil {
+    background: #fdf6e3;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.profil h2 {
+    color: #b8860b;
+}
+
+h1, h2, h3 {
+    font-family: 'Raleway', sans-serif;
+}
+
+.judul-masjid {
+    font-family: 'Great Vibes', cursive;
+}
+
+
+/* Footer */
+footer {
+    background: #F9F9F9;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;      
+}
