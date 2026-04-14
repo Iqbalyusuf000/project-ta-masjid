@@ -21,4 +21,11 @@ class VisionMission extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    protected function casts(): array
+    {
+        return [
+            'misi' => 'array',
+        ];
+    }
 }
