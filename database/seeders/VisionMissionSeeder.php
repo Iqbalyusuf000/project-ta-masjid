@@ -30,7 +30,7 @@ class VisionMissionSeeder extends Seeder
         ];
 
         VisionMission::updateOrCreate(
-            ['created_by' => $admin->id],
+            ['created_by' => $admin->name],
             [
                 'visi' => 'Menjadi pusat peradaban Islam yang bersahaja, transparan, dan mengedepankan persatuan seluruh umat islam di Indonesia maupun dunia.',
                 'misi' => $misi
