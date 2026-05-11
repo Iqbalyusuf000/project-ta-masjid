@@ -12,7 +12,7 @@
                 <li><a href="#" class="text-[#1C1C1C] font-medium hover:text-[#b8860b]">Unit Usaha Masjid</a></li>
                 <li><a href="#" class="text-[#1C1C1C] font-medium hover:text-[#b8860b]">Program</a></li>
                 <li><a href="#" class="text-[#1C1C1C] font-medium hover:text-[#b8860b]">Laporan Keuangan</a></li>
-                <li><a href="#" class="text-[#1C1C1C] font-medium hover:text-[#b8860b]">Kritik & Saran</a></li>
+                <li><a href="#" class="text-[#1C1C1C] font-medium hover:text-[#b8860b]">Kontak</a></li>
             </ul>
         </nav>
 
