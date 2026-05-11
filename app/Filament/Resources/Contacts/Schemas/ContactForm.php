@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Filament\Resources\Contacts\Schemas;
+
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
+
+class ContactForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextInput::make('name')
+                    ->required(),
+                TextInput::make('email')
+                    ->email()
+                    ->required(),
+                TextInput::make('phone_number')
+                    ->numeric()
+                    ->required(),
+                TextInput::make('subject'),
+                RichEditor::make('description'),
+            ]);
+    }
+}
