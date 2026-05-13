@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\Info;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Validator;
 
-class ContactController extends ApiController
+class ContactController extends Controller
 {
     public function store(Request $request)
     {
@@ -32,14 +31,14 @@ class ContactController extends ApiController
             ]);
 
             if ($validator->fails()) {
-                return $this->responseValidationError('Data tidak valid.', $validator->errors());
+                abort(422, 'Validasi error!');
             }
 
-            $contact = Contact::create($validator->validated());
+            Contact::create($validator->validated());
 
-            return $this->responseCreated('Pesan berhasil dikirim.', $contact);
+            return redirect()->route('contact.index')->with('success', 'Pesan berhasil dikirim.');
         } catch (\Throwable $th) {
-            return $this->responseServerError('Pesan gagal dikirim.', $th->getMessage());
+            return redirect()->route('contact.index')->with('error', 'Pesan gagal dikirim.');
         }
     }
 
@@ -48,11 +47,11 @@ class ContactController extends ApiController
         try {
             $info = Info::first();
             if (!$info) {
-                return $this->responseNotFound('Informasi kontak tidak ditemukan.', []);
+                abort(400, 'Informasi kontak tidak ditemukan.');
             }
-            return $this->responseSuccess('Data berhasil diambil.', $info);
+            return view('pages.contact', compact('info'));
         } catch (\Throwable $th) {
-            return $this->responseServerError('Data gagal diambil.', $th->getMessage());
+            abort(500, 'Server error');
         }
     }
 }

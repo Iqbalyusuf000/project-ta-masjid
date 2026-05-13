@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Contacts\Schemas;
 
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -14,15 +15,23 @@ class ContactForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->disabled(),
                 TextInput::make('email')
                     ->email()
-                    ->required(),
+                    ->disabled(),
                 TextInput::make('phone_number')
-                    ->numeric()
-                    ->required(),
-                TextInput::make('subject'),
-                RichEditor::make('description'),
+                    ->tel()
+                    ->disabled(),
+                TextInput::make('subject')
+                    ->disabled(),
+                Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'read' => 'Read',
+                        'replied' => 'Replied',
+                    ]),
+                RichEditor::make('description')
+                    ->disabled(),
             ]);
     }
 }

@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>@yield('title', 'Masjid Al-Kautsar Cempolorejo')</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon/dist/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.24/dist/sweetalert2.all.min.js"></script>
+
     {{-- Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Raleway:wght@400;700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.24/dist/sweetalert2.min.css" rel="stylesheet">
 
     {{-- Tailwind (via Vite or CDN sesuai setup kamu) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,17 +23,18 @@
     @stack('styles')
 </head>
 
-<body class="font-sans text-[#1C1C1C]">
+<body class="font-lato text-secondary">
 
     @include('layouts.partials.header')
 
-    <main>
+    <main class="pt-20">
         @yield('content')
     </main>
 
     @include('layouts.partials.footer')
-    @include('layouts.partials.scripts')
+
 
     @stack('scripts')
 </body>
+
 </html>

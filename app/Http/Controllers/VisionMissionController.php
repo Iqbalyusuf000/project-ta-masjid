@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\VisionMission;
 use Illuminate\Http\Request;
+use App\Models\VisionMission;
 
 class VisionMissionController extends Controller
 {
