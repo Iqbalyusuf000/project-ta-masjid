@@ -8,4 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/vision-mission', [VisionMissionController::class, 'index']);
+// Route::get('/vision-mission', [VisionMissionController::class, 'index']);

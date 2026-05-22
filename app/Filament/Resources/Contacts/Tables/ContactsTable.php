@@ -16,8 +16,8 @@ class ContactsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
+                // TextColumn::make('name')
+                //     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
                 TextColumn::make('subject')
@@ -39,12 +39,14 @@ class ContactsTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make()
+                    ->tooltip('Lakukan edit status "read" jika pesan sudah dibaca atau "replied" jika pesan sudah dibalas melalui Whatapps'),
 
                 // Whatapps Action
                 Action::make('whatsapp')
                     ->label('WhatsApp')
                     ->icon('heroicon-o-chat-bubble-left-right')
+                    ->tooltip('Klik bagian ini untuk mengirim pesan Whatapps bahwa masukkan sudah diterima dan ditindaklajuti')
                     ->color('success')
                     ->url(
                         fn($record) =>
@@ -65,29 +67,29 @@ class ContactsTable
                     ->openUrlInNewTab(),
 
                 // Email Action
-                Action::make('email')
-                    ->label('Email')
-                    ->icon('heroicon-o-envelope')
-                    ->color('info')
-                    ->url(
-                        fn($record) =>
+                // Action::make('email')
+                //     ->label('Email')
+                //     ->icon('heroicon-o-envelope')
+                //     ->color('info')
+                //     ->url(
+                //         fn($record) =>
 
-                        'mailto:' . $record->email .
+                //         'mailto:' . $record->email .
 
-                        '?subject=' .
+                //         '?subject=' .
 
-                        urlencode('Tindak Lanjut Informasi Masjid Al Kautsar') .
+                //         urlencode('Tindak Lanjut Informasi Masjid Al Kautsar') .
 
-                        '&body=' .
+                //         '&body=' .
 
-                        urlencode(
-                            "Assalamu'alaikum {$record->name},\n\n" .
-                            "Terima kasih telah menghubungi Masjid Al Kautsar Cempolorejo.\n\n" .
-                            "Pesan/informasi yang Anda kirimkan telah kami tindak lanjuti.\n\n" .
-                            "Jazakumullahu khairan."
-                        )
+                //         urlencode(
+                //             "Assalamu'alaikum {$record->name},\n\n" .
+                //             "Terima kasih telah menghubungi Masjid Al Kautsar Cempolorejo.\n\n" .
+                //             "Pesan/informasi yang Anda kirimkan telah kami tindak lanjuti.\n\n" .
+                //             "Jazakumullahu khairan."
+                //         )
 
-                    ),
+                //     ),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
