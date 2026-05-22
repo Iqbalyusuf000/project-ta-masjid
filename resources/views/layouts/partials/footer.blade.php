@@ -44,14 +44,14 @@
                     </li>
 
                     <li>
-                        <a href="#" class="hover:text-primary transition-all">
-                            Unit Usaha Masjid
+                        <a href="{{ route('profile') }}" class="hover:text-primary transition-all">
+                            Profile
                         </a>
                     </li>
 
                     <li>
                         <a href="#" class="hover:text-primary transition-all">
-                            Program & Kegiatan
+                            Unit Usaha Masjid
                         </a>
                     </li>
 
@@ -118,8 +118,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-5 text-sm text-stone-400">
 
                 <p class="">
-                    © 2024 Masjid Al Kautsar.
-                    Seluruh Hak Cipta Dilindungi.
+                    © 2026 Masjid Al Kautsar Development Team.
                 </p>
 
                 <div class="flex gap-6">

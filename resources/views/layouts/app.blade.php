@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
     @stack('styles')
 </head>
 
-<body class="font-lato text-secondary">
+<body class="font-lato text-secondary scroll-smooth">
 
     @include('layouts.partials.header')
 

@@ -205,10 +205,10 @@
                                 Anda segera.</p>
 
                             <!-- @if (session('success'))
-                                                                                                                                                                                                                        <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-xl">
-                                                                                                                                                                                                                            {{ session('success') }}
-                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                    @endif -->
+                                                                                                                                                                                                                                                                        <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-xl">
+                                                                                                                                                                                                                                                                            {{ session('success') }}
+                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                    @endif -->
 
                             <form action="{{ route('contact.store') }}" method="post">
 

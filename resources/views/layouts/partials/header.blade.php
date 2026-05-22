@@ -1,13 +1,13 @@
 <header class="bg-neutral shadow-md fixed top-0 left-0 right-0 z-[1000]">
 
-    <div class="container mx-auto flex justify-between items-center py-4 px-6 lg:px-[60px]">
+    <div class="container mx-auto flex justify-between items-center py-4 px-8 lg:px-[30px] xl:px-[60px]">
 
         {{-- Logo --}}
         <div class="flex gap-4 items-center">
 
             <img src="{{ asset('images/logo-alkautsar.png') }}" alt="Logo" class="w-10 lg:w-12">
 
-            <p class="font-bold text-lg sm:text-lg lg:text-lg leading-tight">
+            <p class="font-bold text-base sm:text-lg xl:text-xl leading-tight">
                 <span class="text-secondary">Masjid</span>
                 <span class="text-primary">Al Kautsar Cempolorejo</span>
             </p>
@@ -17,7 +17,7 @@
         {{-- Desktop Navbar --}}
         <nav class="hidden lg:block">
 
-            <ul class="flex gap-8 list-none items-center">
+            <ul class="flex gap-6 list-none items-center text-sm xl:text-base">
 
                 {{-- Home --}}
                 <li>
@@ -29,8 +29,8 @@
 
                 {{-- Profile --}}
                 <li>
-                    <a href="{{ route('vision-mission') }}"
-                        class="text-secondary font-semibold hover:text-primary transition">
+                    <a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'text-primary' : 'text-secondary' }} 
+                        font-semibold hover:text-primary transition">
                         Profile
                     </a>
                 </li>
@@ -38,7 +38,8 @@
                 {{-- Unit Usaha Dropdown --}}
                 <li class="relative group">
 
-                    <button class="flex items-center gap-1 text-secondary font-semibold hover:text-primary transition">
+                    <button
+                        class="flex items-center gap-1 text-secondary lg:font-semibold hover:text-primary transition">
 
                         Unit Usaha Masjid
 
@@ -147,7 +148,8 @@
             </a>
 
             {{-- Profile --}}
-            <a href="#" class="block py-3 px-4 rounded-xl font-semibold text-secondary
+            <a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'text-primary bg-primary/10' : 'text-secondary' }}
+                block py-3 px-4 rounded-xl font-semibold
                 hover:bg-primary/10 hover:text-primary
                 active:scale-[0.98]
                 transition-all duration-200">

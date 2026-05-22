@@ -20,9 +20,11 @@ class InfoForm
                     ->required()
                     ->tel()
                     ->minLength(10)
-                    ->maxLength(13),
+                    ->maxLength(13)
+                    ->placeholder('Harap mengisi nomor telepon dengan awalan 08x'),
                 TextInput::make('email')
                     ->label('Email')
+                    ->placeholder('Harap mengisi email sesuai dengan format email')
                     ->required()
                     ->email()
                     ->regex('/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/'),
