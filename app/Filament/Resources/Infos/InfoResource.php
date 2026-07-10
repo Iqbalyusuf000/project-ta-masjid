@@ -19,7 +19,7 @@ class InfoResource extends Resource
 {
     protected static ?string $model = Info::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Contacts';
+    protected static string|UnitEnum|null $navigationGroup = 'Kontak';
 
     protected static ?int $navigationSort = 0;
 

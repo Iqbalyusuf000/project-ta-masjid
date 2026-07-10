@@ -27,7 +27,7 @@ class OrganizationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowsUpDown;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Profiles';
+    protected static string|UnitEnum|null $navigationGroup = 'Profil';
 
     protected static ?int $navigationSort = 3;
 

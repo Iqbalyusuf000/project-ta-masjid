@@ -1,35 +1,49 @@
 {{-- FOOTER --}}
 <footer class="bg-secondary/90 text-white pt-16 pb-4">
 
-    <div class="container mx-auto px-10">
+    <div class="container mx-auto px-15">
 
         {{-- Grid Footer --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
 
             {{-- Column 1 --}}
-            <div>
+            <div class="lg:col-span-5">
 
                 <div class="flex items-center gap-3 mb-6">
-
+                    {{--
                     <iconify-icon icon="mdi:bookmark" class="text-primary text-3xl">
-                    </iconify-icon>
+                    </iconify-icon> --}}
+                    <img src="{{ asset('images/logo-alkautsar.png') }}" alt="Logo" class="w-10 lg:w-12">
 
-                    <h3 class="text-xl font-bold">
+                    <h3 class="font-raleway text-2xl font-bold text-primary hover:text-neutral transition-all">
                         Masjid Al Kautsar Cempolorejo
                     </h3>
 
                 </div>
 
-                <p class="text-stone-300 leading-8">
-                    Menjadi pusat peradaban umat yang unggul,
-                    profesional, dan berlandaskan nilai-nilai
-                    Al-Qur'an dan Sunnah.
-                </p>
+                <div class="space-y-4 text-stone-300 leading-7">
+
+                    <p>
+                        Jl. Cempolorejo V No.21, Krobokan, Kec. Semarang Barat,
+                        <span class="block">Kota Semarang, Jawa Tengah 50141</span>
+                    </p>
+
+                    <p>
+                        Email:
+                        info@masjid-alkautsar.id
+                    </p>
+
+                    <p>
+                        Telp:
+                        +62 823-2962-1484
+                    </p>
+
+                </div>
 
             </div>
 
             {{-- Column 2 --}}
-            <div>
+            <div class="lg:col-span-2">
 
                 <h3 class="text-primary text-xl font-semibold mb-6">
                     Navigasi
@@ -45,13 +59,7 @@
 
                     <li>
                         <a href="{{ route('profile') }}" class="hover:text-primary transition-all">
-                            Profile
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="hover:text-primary transition-all">
-                            Unit Usaha Masjid
+                            Profil
                         </a>
                     </li>
 
@@ -61,12 +69,18 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{ route('contact.index') }}" class="hover:text-primary transition-all">
+                            Kontak
+                        </a>
+                    </li>
+
                 </ul>
 
             </div>
 
             {{-- Column 3 --}}
-            <div>
+            <div class="lg:col-span-2">
 
                 <h3 class="text-primary text-xl font-semibold mb-6">
                     Layanan Jamaah
@@ -75,38 +89,35 @@
                 <ul class="space-y-4 text-stone-300">
 
                     <li>Kajian Umum</li>
-                    <li>Air Mineral Alka</li>
-                    <li>Bakti Sosial</li>
-                    <li>Zakat & Infaq</li>
+                    <li>Zakat Infaq dan Sedekah</li>
+                    <li>I'tikaf Ramadhan</li>
 
                 </ul>
 
             </div>
 
             {{-- Column 4 --}}
-            <div>
+            <div class="lg:col-span-3">
 
                 <h3 class="text-primary text-xl font-semibold mb-6">
-                    Sekretariat
+                    Unit Usaha Masjid
                 </h3>
 
-                <div class="space-y-4 text-stone-300 leading-7">
+                <ul class="space-y-4 text-stone-300">
 
-                    <p>
-                        Jl. Cempolorejo V No.21, Krobokan, Kec. Semarang Barat, Kota Semarang, Jawa Tengah 50141
-                    </p>
+                    <li>
+                        <a href="{{ route('water-refill') }}" class="hover:text-primary transition-all">
+                            Isi Ulang Air Mineral Alka
+                        </a>
+                    </li>
 
-                    <p>
-                        Email:
-                        info@masjid-alkautsar.id
-                    </p>
+                    <li>
+                        <a href="{{ route('hajj') }}" class="hover:text-primary transition-all">
+                            Biro Haji dan Umroh
+                        </a>
+                    </li>
 
-                    <p>
-                        Telp:
-                        +62 823-2962-1484
-                    </p>
-
-                </div>
+                </ul>
 
             </div>
 

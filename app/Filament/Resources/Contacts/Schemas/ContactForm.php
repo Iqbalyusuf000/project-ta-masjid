@@ -30,7 +30,7 @@ class ContactForm
                         'read' => 'Read',
                         'replied' => 'Replied',
                     ]),
-                RichEditor::make('description')
+                Textarea::make('description')
                     ->disabled(),
             ]);
     }

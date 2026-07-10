@@ -23,7 +23,7 @@ class OrganizationPeriodResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Organization Periods';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Profiles';
+    protected static string|UnitEnum|null $navigationGroup = 'Profil';
 
     protected static ?int $navigationSort = 2;
 

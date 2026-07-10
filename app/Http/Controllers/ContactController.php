@@ -44,14 +44,7 @@ class ContactController extends Controller
 
     public function index()
     {
-        try {
-            $info = Info::first();
-            if (!$info) {
-                abort(400, 'Informasi kontak tidak ditemukan.');
-            }
-            return view('pages.contact', compact('info'));
-        } catch (\Throwable $th) {
-            abort(500, 'Server error');
-        }
+        $info = Info::first();
+        return view('pages.contact', compact('info'));
     }
 }
