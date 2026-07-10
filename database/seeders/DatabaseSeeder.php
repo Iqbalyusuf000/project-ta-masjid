@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             PositionSeeder::class,
             DivisionSeeder::class,
             InfoSeeder::class,
+            WaterRefillSeeder::class,
+            TestimonialSeeder::class,
+            FaqSeeder::class,
+            DonationCategorySeeder::class,
         ]);
     }
 }

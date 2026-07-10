@@ -21,7 +21,7 @@ class ContactResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Contacts';
+    protected static string|UnitEnum|null $navigationGroup = 'Kontak';
 
     protected static ?int $navigationSort = 1;
 

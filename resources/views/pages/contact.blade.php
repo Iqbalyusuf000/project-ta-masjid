@@ -27,310 +27,247 @@
     @endif
 
     {{-- Prayer Time --}}
-    <section class="sm:pt-1 pb-1 md:pt-2 pb-2 lg:pt-2 py-2">
-        <div class="container mx-auto px-10">
-            @include('components.prayer-time')
+    <section class="py-4 bg-neutral/40">
+        <div class="container mx-auto px-6 md:px-10">
+            <x-prayer-time-widget />
         </div>
     </section>
 
     {{-- Hero Contact --}}
-    <section class="relative bg-tertiary py-20 overflow-hidden">
+    <section class="relative bg-tertiary py-24 overflow-hidden">
+        {{-- Background Decor Elements --}}
+        <div class="absolute -top-24 -left-20 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
 
         {{-- Overlay --}}
-        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10"></div>
 
-        <div class="relative container mx-auto px-6 text-center text-white">
-
-            <h1 class="text-5xl font-bold mb-6 font-raleway">
+        <div class="relative container mx-auto px-6 text-center text-white z-10">
+            <span class="text-primary font-semibold tracking-widest uppercase text-xs sm:text-sm mb-3 block">Silaturahmi &
+                Koordinasi</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 font-raleway tracking-tight">
                 Hubungi Kami
             </h1>
-
-            <p class="max-w-3xl mx-auto text-base leading-8 text-stone-200">
+            <p class="max-w-2xl mx-auto text-sm md:text-base leading-relaxed text-stone-200 font-light">
                 Masjid Al Kautsar berkomitmen untuk selalu hadir bagi jamaah dan masyarakat.
-                Kami membuka pintu selebar-lebarnya untuk pertanyaan, masukan, maupun koordinasi
-                kegiatan keumatan.
+                Kami membuka pintu selebar-lebarnya untuk pertanyaan, masukan, maupun koordinasi kegiatan keumatan.
             </p>
-
         </div>
     </section>
 
     {{-- Contact Content --}}
-    <section class="bg-neutral py-20">
-        <div class="container mx-auto px-10">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <section class="bg-neutral/30 py-16 md:py-24">
+        <div class="container mx-auto px-6 md:px-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
 
-                {{-- left --}}
-                <div class="lg:col-span-1">
-
-                    {{-- Title --}}
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-1 h-8 bg-primary rounded-full"></div>
-
-                        <h2 class="text-3xl font-bold text-secondary">
+                {{-- Left Column: Info --}}
+                <div class="lg:col-span-1 space-y-6">
+                    {{-- Title Section --}}
+                    <div class="flex items-center gap-3.5 mb-2 pb-3">
+                        <div class="w-1.5 h-8 bg-primary rounded-full shadow-sm shadow-primary/50"></div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-secondary tracking-tight">
                             Informasi Kontak
                         </h2>
                     </div>
 
-                    {{-- Card --}}
-                    <div class="space-y-5">
-
-                        {{-- Address --}}
-                        <div class="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
-                            <div class="flex items-center gap-3">
+                    {{-- Info Cards Container --}}
+                    <div class="space-y-4">
+                        {{-- Address Card --}}
+                        <div
+                            class="bg-white rounded-2xl border border-stone-200/60 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group">
+                            <div class="flex gap-4 items-start">
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-primary/15 flex justify-center items-center text-primary shrink-0">
+                                    class="w-12 h-12 rounded-xl bg-primary/10 flex justify-center items-center text-primary shrink-0 transition-colors group-hover:bg-primary group-hover:text-white duration-300">
                                     <iconify-icon icon="mdi:map-marker-outline" class="text-2xl"></iconify-icon>
                                 </div>
-
-                                <div>
-                                    <h3 class="font-bold text-secondary mb-1">
-                                        Alamat
-                                    </h3>
-
-                                    <p class="text-sm text-stone-600 leading-6">
+                                <div class="space-y-1">
+                                    <h3 class="font-bold text-secondary text-base">Alamat Masjid</h3>
+                                    <p class="text-sm text-stone-600 leading-relaxed font-light">
                                         {{ $info->address }}
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Phone --}}
-                        <div class="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
-
-                            <div class="flex gap-4 items-center">
-
+                        {{-- Phone Card --}}
+                        <div
+                            class="bg-white rounded-2xl border border-stone-200/60 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group">
+                            <div class="flex gap-4 items-start">
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-primary/15 flex justify-center items-center text-primary shrink-0">
+                                    class="w-12 h-12 rounded-xl bg-primary/10 flex justify-center items-center text-primary shrink-0 transition-colors group-hover:bg-primary group-hover:text-white duration-300">
                                     <iconify-icon icon="mdi:phone-outline" class="text-2xl"></iconify-icon>
                                 </div>
-
-                                <div>
-                                    <h3 class="font-bold text-secondary mb-1">
-                                        Telepon
-                                    </h3>
-
-                                    <p class="text-sm text-stone-600">
+                                <div class="space-y-1">
+                                    <h3 class="font-bold text-secondary text-base">Telepon</h3>
+                                    <p class="text-sm text-stone-600 font-medium">
                                         {{ $info->phone_number }}
                                     </p>
                                 </div>
-
                             </div>
-
                         </div>
 
-                        {{-- Email --}}
-                        <div class="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
-
-                            <div class="flex gap-4 items-center">
-
+                        {{-- Email Card --}}
+                        <div
+                            class="bg-white rounded-2xl border border-stone-200/60 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group">
+                            <div class="flex gap-4 items-start">
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-primary/15 flex justify-center items-center text-primary shrink-0">
+                                    class="w-12 h-12 rounded-xl bg-primary/10 flex justify-center items-center text-primary shrink-0 transition-colors group-hover:bg-primary group-hover:text-white duration-300">
                                     <iconify-icon icon="mdi:email-outline" class="text-2xl"></iconify-icon>
                                 </div>
-
-                                <div>
-                                    <h3 class="font-bold text-secondary mb-1">
-                                        Email
-                                    </h3>
-
-                                    <p class="text-sm text-stone-600">
+                                <div class="space-y-1">
+                                    <h3 class="font-bold text-secondary text-base">Email Resmi</h3>
+                                    <p class="text-sm text-stone-600 font-light break-all">
                                         {{ $info->email }}
                                     </p>
                                 </div>
-
                             </div>
-
                         </div>
 
                         {{-- WhatsApp Button --}}
-                        <a href="https://wa.me/+6282329621484" target="_blank" rel="noopener noreferrer"
-                            class="mt-8 w-full bg-green-500 hover:bg-green-600 active:scale-[0.98] transition-all text-white py-4 rounded-xl flex justify-center items-center gap-3 font-semibold shadow-md shadow-green-200">
-
-                            <!-- Iconify Icon -->
-                            <iconify-icon icon="mdi:whatsapp" class="text-2xl"></iconify-icon>
-
+                        <a href="https://wa.me/6282329621484" target="_blank" rel="noopener noreferrer"
+                            class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 active:scale-[0.98] transition-all duration-300 text-white py-4 rounded-xl flex justify-center items-center gap-2.5 font-semibold shadow-md shadow-green-100 mt-2">
+                            <iconify-icon icon="mdi:whatsapp" class="text-2xl animate-pulse"></iconify-icon>
                             <span>Hubungi Via WhatsApp</span>
                         </a>
 
                         {{-- Social Media --}}
-                        <div class="mt-10 flex flex-col items-center">
-
-                            <h3 class="text-sm font-bold tracking-widest text-stone-400 uppercase mb-5">
-                                Media Sosial
+                        <div class="pt-6 flex flex-col items-center border-t border-stone-200/60 mt-4">
+                            <h3 class="text-xs font-bold tracking-widest text-stone-400 uppercase mb-4">
+                                Media Sosial Resmi
                             </h3>
-
-                            <div class="flex gap-8">
-
+                            <div class="flex gap-5">
                                 <a href="https://www.instagram.com/masjidalkautsarcmplrjo/" target="_blank"
                                     rel="noopener noreferrer"
-                                    class="w-11 h-11 rounded-xl border border-primary/30 flex justify-center items-center text-primary hover:bg-primary hover:text-white transition-all">
-
+                                    class="w-10 h-10 rounded-xl border border-stone-200 bg-white flex justify-center items-center text-stone-600 hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-300 hover:-translate-y-0.5">
                                     <iconify-icon icon="mdi:instagram" class="text-xl"></iconify-icon>
                                 </a>
-
                                 <a href="https://www.youtube.com/@MasjidAlkautsarCempolorejo" target="_blank"
                                     rel="noopener noreferrer"
-                                    class="w-11 h-11 rounded-xl border border-primary/30 flex justify-center items-center text-primary hover:bg-primary hover:text-white transition-all">
-
+                                    class="w-10 h-10 rounded-xl border border-stone-200 bg-white flex justify-center items-center text-stone-600 hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-300 hover:-translate-y-0.5">
                                     <iconify-icon icon="mdi:youtube" class="text-xl"></iconify-icon>
                                 </a>
-
                                 <a href="https://www.tiktok.com/@masjidalkautsarcmplrjo" target="_blank"
                                     rel="noopener noreferrer"
-                                    class="w-11 h-11 rounded-xl border border-primary/30 flex justify-center items-center text-primary hover:bg-primary hover:text-white transition-all">
-
-                                    <iconify-icon icon="akar-icons:tiktok-fill" class="text-xl"></iconify-icon>
+                                    class="w-10 h-10 rounded-xl border border-stone-200 bg-white flex justify-center items-center text-stone-600 hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+                                    <iconify-icon icon="akar-icons:tiktok-fill" class="text-lg"></iconify-icon>
                                 </a>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
 
-                {{-- Right --}}
-                <div class="lg:col-span-2 ">
+                {{-- Right Column: Message Form --}}
+                <div class="lg:col-span-2">
+                    <div
+                        class="bg-white rounded-3xl border border-stone-200/60 shadow-xl shadow-stone-100/50 overflow-hidden relative">
+                        {{-- Top Accent Bar --}}
+                        <div class="h-1.5 bg-linear-to-r from-primary via-primary/80 to-tertiary"></div>
 
-                    <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+                        <div class="p-6 sm:p-10 md:p-12">
+                            <h2 class="text-secondary text-2xl md:text-3xl font-bold tracking-tight mb-2">Kirim Pesan</h2>
+                            <p class="text-stone-500 text-sm md:text-base leading-relaxed font-light mb-8">
+                                Silakan isi formulir di bawah ini, tim admin kami akan merespons pesan Anda
+                                secepatnya.
+                            </p>
 
-                        {{-- Top Border --}}
-                        <div class="h-2 bg-primary"></div>
-
-                        <div class="p-10 shadow-2xl">
-
-                            <h2 class="text-secondary text-3xl font-bold mb-2">Kirim Pesan</h2>
-
-                            <p class="text-stone-500 leading-7 mb-8">Silakan isi formulir di bawah ini, tim admin kami akan
-                                merespons pesan
-                                Anda segera.</p>
-
-                            <!-- @if (session('success'))
-                                                                                                                                                                                                                                                                        <div class="mb-6 bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-xl">
-                                                                                                                                                                                                                                                                            {{ session('success') }}
-                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                    @endif -->
-
-                            <form action="{{ route('contact.store') }}" method="post">
-
+                            <form action="{{ route('contact.store') }}" method="post" class="space-y-5">
                                 @csrf
 
-                                {{-- row 1 --}}
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-
-                                    {{-- Name --}}
-                                    <div>
-
+                                {{-- Row 1: Name & Email --}}
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    {{-- Name input --}}
+                                    <div class="space-y-2">
                                         <label for="name"
-                                            class="block text-sm font-semibold text-stone-600 mb-2 tracking-widest">
+                                            class="block text-xs font-bold text-stone-700 tracking-wider uppercase">
                                             Nama Lengkap
                                         </label>
-
-                                        <input type="text" name="name" id="name" placeholder="Masukkan Nama Anda"
-                                            required="required"
-                                            class="w-full border border-stone-200 rounded-xl px-4 py-2 outline-none focus:border-primary mb-6">
-
+                                        <input type="text" name="name" id="name" placeholder="Masukkan nama Anda" required
+                                            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none">
                                     </div>
 
-                                    {{-- Email --}}
-                                    <div>
-
+                                    {{-- Email input --}}
+                                    <div class="space-y-2">
                                         <label for="email"
-                                            class="block text-sm font-semibold text-stone-600 mb-2 tracking-widest">
+                                            class="block text-xs font-bold text-stone-700 tracking-wider uppercase">
                                             Alamat Email
                                         </label>
-
-                                        <input type="email" name="email" id="email" placeholder="Masukkan Email Anda"
-                                            required="required"
-                                            class="w-full border border-stone-200 rounded-xl px-4 py-2 outline-none focus:border-primary mb-6">
-
+                                        <input type="email" name="email" id="email" placeholder="contoh@email.com" required
+                                            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none">
                                     </div>
-
                                 </div>
 
-                                {{-- row 2 --}}
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                                    {{-- Nomor Telp --}}
-                                    <div>
-
+                                {{-- Row 2: Phone & Subject --}}
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    {{-- Phone input --}}
+                                    <div class="space-y-2">
                                         <label for="phone_number"
-                                            class="block text-sm font-semibold text-stone-600 mb-2 tracking-widest">
-                                            Nomor Telepon
+                                            class="block text-xs font-bold text-stone-700 tracking-wider uppercase">
+                                            Nomor Telepon / WA
                                         </label>
-
-                                        <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{10,13}"
-                                            required placeholder="Masukkan Nomor Telepon Anda"
-                                            class="w-full border border-stone-200 rounded-xl px-4 py-2 outline-none focus:border-primary mb-6">
-
+                                        <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{10,14}"
+                                            required placeholder="Contoh: 08123456789"
+                                            class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none">
                                     </div>
 
-                                    {{-- Subjek --}}
-                                    <div>
-
+                                    {{-- Subject input --}}
+                                    <div class="space-y-2">
                                         <label for="subject"
-                                            class="block text-sm font-semibold text-stone-600 mb-2 tracking-widest">
-                                            Subjek
+                                            class="block text-xs font-bold text-stone-700 tracking-wider uppercase">
+                                            Subjek Pesan
                                         </label>
-
-                                        <select name="subject" id="subject" required="required"
-                                            class="w-full border border-stone-200 rounded-xl px-4 py-2 outline-none focus:border-primary mb-6">
-                                            <option value="">Pilih Subjek</option>
-                                            <option value="saran">Saran</option>
-                                            <option value="keluhan">Keluhan</option>
-                                            <option value="pertanyaan">Pertanyaan</option>
-                                            <option value="lainnya">Lainnya</option>
-                                        </select>
-
+                                        <div class="relative">
+                                            <select name="subject" id="subject" required
+                                                class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none appearance-none cursor-pointer">
+                                                <option value="" disabled selected class="text-stone-400">Pilih Subjek
+                                                </option>
+                                                <option value="saran">Saran & Kritik</option>
+                                                <option value="keluhan">Keluhan Layanan</option>
+                                                <option value="pertanyaan">Pertanyaan Umum</option>
+                                                <option value="lainnya">Lainnya</option>
+                                            </select>
+                                            <div
+                                                class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-stone-500">
+                                                <iconify-icon icon="tabler:chevron-down"></iconify-icon>
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </div>
 
-                                {{-- row 3 --}}
-                                {{-- Description --}}
-                                <div>
-
+                                {{-- Row 3: Description --}}
+                                <div class="space-y-2">
                                     <label for="description"
-                                        class="block text-sm font-semibold text-stone-600 mb-2 tracking-widest">
-                                        Pesan Anda
+                                        class="block text-xs font-bold text-stone-700 tracking-wider uppercase">
+                                        Isi Pesan Anda
                                     </label>
-
-                                    <textarea name="description" id="description" rows="6" required="required"
-                                        placeholder="Tuliskan detail pesan Anda di sini..."
-                                        class="w-full border border-stone-200 rounded-xl px-4 py-2 outline-none focus:border-primary mb-6"></textarea>
-
+                                    <textarea name="description" id="description" rows="5" required
+                                        placeholder="Tuliskan detail pesan, saran, atau pertanyaan Anda di sini..."
+                                        class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 outline-none resize-none"></textarea>
                                 </div>
 
-                                {{-- button --}}
-                                <button type="submit"
-                                    class="bg-primary hover:bg-tertiary transition-all text-white px-8 py-4 rounded-xl font-semibold flex items-center gap-3 shadow-sm">
-
-                                    <iconify-icon icon="mdi:send-outline" class="text-xl"></iconify-icon>
-
-                                    Kirim Sekarang
-                                </button>
+                                {{-- Submit Button --}}
+                                <div class="pt-2">
+                                    <button type="submit"
+                                        class="w-full sm:w-auto bg-primary hover:bg-tertiary active:scale-[0.98] transition-all duration-300 text-white px-8 py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2.5 shadow-md shadow-primary/10">
+                                        <iconify-icon icon="mdi:send-outline" class="text-xl"></iconify-icon>
+                                        <span>Kirim Pesan Sekarang</span>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
 
-    {{-- LOCATION SECTION --}}
-    <section class="relative">
-
-        <div class="bg-white overflow-hidden shadow-sm border border-stone-200">
-
-            <div class="h-[300px] sm:h-[400px] lg:h-[500px]">
-
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2524127362867!2d110.39327027451989!3d-6.97951479302131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b33808fa249%3A0x80e777853de7417!2sMasjid%20Al-Kautsar!5e0!3m2!1sen!2sid!4v1778660184157!5m2!1sen!2sid"
-                    width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-            </div>
-
+    {{-- Location Map Section --}}
+    <section class="w-full relative border-t border-stone-200">
+        <div class="w-full h-[350px] sm:h-[450px] lg:h-[520px] bg-stone-100 overflow-hidden">
+            <iframe
+                src="https://maps.google.com/maps?q=Masjid%20Al-Kautsar%20Cempolorejo%20Krobokan%20Semarang&t=h&z=18&ie=UTF8&iwloc=&output=embed"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" class="w-full h-full grayscale-15 contrast-110 tracking-normal">
+            </iframe>
         </div>
     </section>
 

@@ -9,6 +9,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon/dist/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.24/dist/sweetalert2.all.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     {{-- Fonts --}}
     <link
@@ -27,7 +28,7 @@
 
     @include('layouts.partials.header')
 
-    <main class="pt-20">
+    <main class="pt-18 lg:pt-20">
         @yield('content')
     </main>
 

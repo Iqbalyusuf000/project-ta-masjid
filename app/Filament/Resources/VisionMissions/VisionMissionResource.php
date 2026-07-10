@@ -21,7 +21,7 @@ class VisionMissionResource extends Resource
 {
     protected static ?string $model = VisionMission::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Profiles';
+    protected static string|UnitEnum|null $navigationGroup = 'Profil';
 
     protected static ?int $navigationSort = 0;
 

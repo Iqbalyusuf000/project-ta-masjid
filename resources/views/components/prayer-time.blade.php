@@ -2,7 +2,7 @@
 {{-- Penggunaan: @include('components.prayer-time') --}}
 
 <div id="prayer-widget"
-    class="flex flex-col lg:flex-row lg:items-center w-full bg-neutral rounded-xl border border-stone-200 shadow-sm px-4 sm: px-6 py-4 gap-4 lg:gap-0">
+    class="flex flex-col lg:flex-row lg:items-center w-full bg-secondary rounded-xl border border-stone-200 shadow-sm px-4 sm: px-6 py-4 gap-4 lg:gap-0">
 
     {{-- Icon + Waktu Saat Ini --}}
     <div class="flex items-center justify-center gap-3 min-w-0 lg: min-w-[170px] shrink-0">
@@ -22,7 +22,7 @@
                 Waktu Saat Ini
             </span>
 
-            <span id="prayer-clock" class="text-sm sm:text-base font-bold text-secondary tracking-wide font-lato">
+            <span id="prayer-clock" class="text-sm sm:text-base font-bold text-white tracking-wide font-lato">
                 --:-- WIB
             </span>
         </div>
@@ -54,7 +54,7 @@
                 </span>
 
                 <span id="time-{{ $waktu }}"
-                    class="prayer-time text-base sm:text-lg font-bold text-secondary font-lato tracking-wide transition-colors duration-300">
+                    class="prayer-time text-base sm:text-lg font-bold text-white font-lato tracking-wide transition-colors duration-300">
                     --:--
                 </span>
             </div>
