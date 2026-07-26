@@ -18,5 +18,7 @@ class DonationSetting extends Model
         'qris_image',
         'description',
         'rice_weight',
+        'is_itikaf_open',
+        'is_zakat_open',
     ];
 }

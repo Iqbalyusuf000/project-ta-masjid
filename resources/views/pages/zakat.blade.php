@@ -47,6 +47,26 @@
     closeModal() {
         this.showModal = false;
         window.location.reload();
+    },
+    getWaLink() {
+        let phone = '6282329621484';
+        let name = this.responseData.muzakki_name || '';
+        let code = this.responseData.zakat_code || '';
+        let rice = this.responseData.rice_total || 0;
+        let text = '';
+        
+        if (!this.responseData.has_infaq) {
+            text = `Assalamu'alaikum, saya ${name} dengan Kode Pendaftaran Zakat *${code}* bermaksud melakukan konfirmasi penyerahan beras sejumlah ${rice} kg.`;
+        } else {
+            let infaqMethod = this.responseData.infaq?.payment_method;
+            let nominal = (this.responseData.infaq?.total_amount || 0).toLocaleString('id-ID');
+            if (infaqMethod === 'tunai') {
+                text = `Assalamu'alaikum, saya ${name} dengan Kode Pendaftaran Zakat *${code}* bermaksud melakukan konfirmasi penyerahan beras sejumlah ${rice} kg dan infaq tunai sebesar Rp ${nominal}.`;
+            } else {
+                text = `Assalamu'alaikum, saya ${name} dengan Kode Pendaftaran Zakat *${code}* bermaksud melakukan konfirmasi penyerahan beras sejumlah ${rice} kg, dan berikut ini adalah bukti transfer infaq sebesar Rp ${nominal}.`;
+            }
+        }
+        return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     }
 }">
 
@@ -113,6 +133,7 @@
                         Formulir Pendaftaran ZIS
                     </h3>
 
+                    @if(isset($setting) && $setting->is_zakat_open)
                     <form @submit.prevent="submitForm" class="space-y-6">
                         @csrf
 
@@ -268,6 +289,13 @@
                             <span x-text="isLoading ? 'Memproses...' : 'Dapatkan Kode Antrean Zakat'"></span>
                         </button>
                     </form>
+                    @else
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
+                        <iconify-icon icon="mdi:calendar-lock" class="text-6xl text-slate-300 mb-4"></iconify-icon>
+                        <h3 class="font-bold text-xl text-slate-700 mb-2">Penerimaan Belum Dibuka</h3>
+                        <p class="text-sm text-slate-500">Mohon maaf, penerimaan Zakat Fitrah saat ini belum dibuka. Silakan tunggu informasi dari pengurus masjid.</p>
+                    </div>
+                    @endif
                 </div>
             </div>
 
@@ -488,43 +516,48 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-            class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
+            class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-y-auto max-h-[90vh] md:max-h-[85vh] scrollbar-thin"
             @click.stop
         >
-            {{-- Header --}}
-            <div class="bg-gradient-to-br from-[#D4AF37] to-[#B8860B] px-6 pt-8 pb-12 text-center relative">
-                <div class="absolute inset-0 opacity-10"
-                    style="background-image: radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px); background-size: 30px 30px;">
+            <div class="bg-gradient-to-br from-secondary to-slate-800 p-6 text-center">
+                <div class="w-16 h-16 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <iconify-icon icon="mdi:check-circle" class="text-4xl text-green-400"></iconify-icon>
                 </div>
-                <div class="relative">
-                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <iconify-icon icon="mdi:check-circle" class="text-white text-4xl"></iconify-icon>
-                    </div>
-                    <h2 class="text-xl font-extrabold text-white">Pendaftaran Berhasil!</h2>
-                    <p class="text-white/80 text-sm mt-1">Tunjukkan kode ini kepada amil di meja penerimaan</p>
-                </div>
+                <h3 class="text-white font-bold text-lg">Pendaftaran Berhasil!</h3>
+                <p class="text-white/70 text-xs mt-1">Tunjukkan kode ini kepada amil di meja penerimaan atau konfirmasi via Whatsapp.</p>
             </div>
 
-            {{-- Body --}}
-            <div class="px-6 pb-6 -mt-6">
-                {{-- Kode Zakat Card --}}
-                <div class="bg-white rounded-2xl border-2 border-[#D4AF37]/30 shadow-lg p-5 text-center mb-4">
-                    <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Kode Antrean Zakat Anda</p>
-                    <div class="bg-slate-50 rounded-xl py-4 px-6 border border-slate-100">
-                        <p class="font-mono text-2xl font-black tracking-widest text-[#B8860B]" x-text="responseData.zakat_code ?? '-'"></p>
+            {{-- Body Modal --}}
+            <div class="p-6 space-y-3">
+                {{-- Kode Zakat --}}
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center">
+                    <p class="text-xs text-amber-700 mb-1">Kode Antrean Zakat Anda</p>
+                    <p class="text-2xl font-bold text-secondary tracking-widest font-mono" x-text="responseData.zakat_code ?? '-'"></p>
+                    <p class="text-xs text-amber-600 mt-1">Tunjukkan kepada amil di meja penerimaan</p>
+                </div>
+
+                {{-- Detail Zakat --}}
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm border-b border-slate-100 pb-2">
+                        <span class="text-slate-500">Nama</span>
+                        <span class="font-semibold text-slate-900" x-text="responseData.muzakki_name ?? '-'"></span>
                     </div>
-                    <div class="flex justify-center gap-6 mt-3 text-xs text-slate-500">
-                        <span>👤 <span class="font-semibold text-slate-700" x-text="responseData.muzakki_name ?? '-'"></span></span>
-                        <span>🌾 <span class="font-semibold text-slate-700" x-text="(responseData.rice_total ?? 0) + ' Kg'"></span></span>
+                    <div class="flex justify-between text-sm pb-2 border-b border-slate-100">
+                        <span class="text-slate-500">Total Jiwa</span>
+                        <span class="font-semibold text-slate-900 text-right" x-text="(responseData.jumlah_jiwa ?? 0) + ' Orang'"></span>
+                    </div>
+                    <div class="flex justify-between text-sm pb-2">
+                        <span class="text-slate-500">Total Beras Zakat</span>
+                        <span class="font-semibold text-slate-900 text-right" x-text="(responseData.rice_total ?? 0) + ' Kg'"></span>
                     </div>
                 </div>
 
                 {{-- Bagian Infaq (Kondisional) --}}
                 <template x-if="responseData.has_infaq">
-                    <div>
+                    <div class="mt-4">
                         {{-- Infaq: Tunai --}}
                         <template x-if="responseData.infaq && responseData.infaq.payment_method === 'tunai'">
-                            <div class="bg-green-50 border border-green-200 rounded-2xl p-4 mb-4 text-center">
+                            <div class="bg-green-50 border border-green-200 rounded-2xl p-4 text-center">
                                 <iconify-icon icon="mdi:cash-multiple" class="text-3xl text-green-600 mb-1"></iconify-icon>
                                 <p class="text-xs font-bold uppercase tracking-wider text-green-700">Infaq Tunai</p>
                                 <p class="text-sm text-green-800 mt-1">Serahkan infaq berikut bersama beras zakat Anda kepada Amil:</p>
@@ -542,7 +575,7 @@
 
                         {{-- Infaq: Transfer / QRIS --}}
                         <template x-if="responseData.infaq && responseData.infaq.payment_method === 'transfer_qris'">
-                            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-4 text-center">
+                            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-center">
                                 <iconify-icon icon="mdi:qrcode-scan" class="text-3xl text-blue-600 mb-1"></iconify-icon>
                                 <p class="text-xs font-bold uppercase tracking-wider text-blue-700">Infaq via Transfer / QRIS</p>
                                 <p class="text-sm text-blue-800 mt-1">Scan QR Code berikut untuk membayar infaq:</p>
@@ -550,12 +583,12 @@
                                 {{-- QRIS Image --}}
                                 <template x-if="responseData.infaq?.qris_image_url">
                                     <div class="mt-3 bg-white rounded-xl border border-blue-200 p-3 inline-block">
-                                        <img :src="responseData.infaq.qris_image_url" alt="QRIS Masjid Al-Kautsar" class="w-48 h-48 object-contain mx-auto rounded-lg">
+                                        <img :src="responseData.infaq.qris_image_url" alt="QRIS Masjid Al-Kautsar" class="w-40 h-40 object-contain mx-auto rounded-lg">
                                     </div>
                                 </template>
                                 <template x-if="!responseData.infaq?.qris_image_url">
                                     <div class="mt-3 bg-white rounded-xl border border-blue-200 p-6 text-slate-400 text-xs">
-                                        Gambar QRIS belum tersedia.<br>Hubungi petugas amil.
+                                        Gambar QRIS belum tersedia.<br>Hubungi pengurus masjid.
                                     </div>
                                 </template>
 
@@ -569,26 +602,40 @@
                                         + Kode Unik: <span x-text="responseData.infaq?.unique_code ?? 0"></span>)
                                     </p>
                                 </div>
+                                
+                                <div class="mt-3 text-xs text-blue-700 text-left space-y-1 bg-white p-3 border border-blue-200 rounded-xl">
+                                    <p>Bank Tujuan: <span class="font-bold" x-text="responseData.infaq ? (responseData.infaq.bank_name || '-') : ''"></span></p>
+                                    <p>No. Rekening: <span class="font-bold" x-text="responseData.infaq ? (responseData.infaq.account_number || '-') : ''"></span></p>
+                                    <p>Atas Nama: <span class="font-bold" x-text="responseData.infaq ? (responseData.infaq.account_name || '-') : ''"></span></p>
+                                </div>
+                                <div class="mt-3 p-3 bg-blue-100 rounded-xl border border-blue-300 text-xs text-blue-900 text-left">
+                                    <span class="font-bold flex items-center gap-1">
+                                        <iconify-icon icon="mdi:information" class="text-sm"></iconify-icon> Penting:
+                                    </span>
+                                    Gunakan Kode Zakat <span class="font-mono font-bold" x-text="responseData.zakat_code"></span> sebagai Berita Transfer / Referensi saat mengonfirmasi Infaq Anda.
+                                </div>
                             </div>
                         </template>
                     </div>
                 </template>
 
                 {{-- Info tambahan untuk tunai saja --}}
-                <div class="text-center text-xs text-slate-400 mb-4" x-show="!responseData.has_infaq">
+                <div class="text-center text-xs text-slate-400 mt-2" x-show="!responseData.has_infaq">
                     Segera serahkan beras zakat Anda kepada petugas Amil di Masjid Al-Kautsar.
                 </div>
 
-                {{-- Tombol Tutup --}}
-                <button
-                    @click="closeModal()"
-                    class="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-[#0F172A] font-extrabold py-4 rounded-xl shadow-lg shadow-[#D4AF37]/20 transition-all active:scale-[0.99] cursor-pointer"
-                >
-                    ✓ Tutup & Selesai
+                <div class="text-center text-xs text-slate-500 mt-4 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    Konfirmasi Zakat dan Infaq Anda: <br>
+                    <a :href="getWaLink()" target="_blank" 
+                    class="text-blue-600 hover:text-blue-800 font-bold">082329621484 (WA Admin)</a>
+                </div>
+
+                <button @click="closeModal()"
+                    class="w-full bg-secondary text-white font-bold py-3.5 rounded-2xl hover:bg-secondary/90 transition-all active:scale-[0.99] mt-4">
+                    Selesai
                 </button>
             </div>
         </div>
-    </div>
 
-</div>{{-- end x-data outer wrapper --}}
+    </div>{{-- end x-data outer wrapper --}}
 @endsection

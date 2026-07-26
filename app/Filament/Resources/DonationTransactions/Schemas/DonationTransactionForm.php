@@ -52,19 +52,22 @@ class DonationTransactionForm
                     ->options([
                         'pending' => 'Pending',
                         'success' => 'Success',
+                        'failed'  => 'Failed',
                     ])
                     ->required(),
                 Select::make('reference_type')
                     ->label('Reference Type')
                     ->options([
                         'zakat_fitrah' => 'Zakat Fitrah',
-                        'donation' => 'Donation',
+                        'itikaf_registration' => 'Itikaf Registration',
+                        'infaq_umum' => 'Infaq Umum',
+                        'santunan_yatim_piatu' => 'Santunan Yatim & Dhuafa',
                     ])
                     ->required()
                     ->disabled(),
                 TextInput::make('reference_id')
                     ->label('Reference ID')
-                    ->required()
+                    // ->required()
                     ->disabled(),
             ]);
     }

@@ -6,14 +6,15 @@
 
     {{-- HERO SECTION: Simpel, Bersih, & Minimalis Elegan --}}
     <section class="px-4 sm:px-6 lg:px-16 max-w-[1440px] mx-auto w-full pt-6 sm:pt-10">
-        <div class="bg-linear-to-br from-tertiary to-yellow-600 rounded-3xl p-6 sm:p-10 lg:p-14 shadow-sm">
-            <div class="max-w-4xl">
+        <div
+            class="flex justify-center items-center bg-linear-to-br from-tertiary to-yellow-600 rounded-3xl p-6 sm:p-10 lg:p-14 shadow-sm">
+            <div class="max-w-4xl text-center">
 
                 {{-- Badge Unit Usaha --}}
-                <div class="flex items-center gap-2 mb-4">
+                <div class="flex items-center justify-center gap-2 mb-4">
                     <span class="w-2 h-2 rounded-full bg-amber-300 animate-pulse"></span>
                     <span class="text-xs sm:text-sm font-bold tracking-widest text-amber-200 uppercase">
-                        Unit Usaha Masjid • Air ALKA
+                        Unit Usaha Masjid • Alka Tirta
                     </span>
                 </div>
 
@@ -24,7 +25,7 @@
                 </h1>
 
                 {{-- Deskripsi dengan Gaya Border Kiri (Sama seperti teks ayat di gambar ref) --}}
-                <div class="border-l-4 border-amber-300/60 pl-4 mb-4 sm:mb-8">
+                <div class="border-amber-300/60 pl-4 mb-4 sm:mb-8">
                     <p class="text-stone-100 text-sm sm:text-base leading-relaxed max-w-2xl font-medium">
                         "Hadirkan kemurnian air pegunungan yang diproses dengan teknologi filtrasi modern di bawah naungan
                         Masjid Al Kautsar. Setiap tetesnya mengalirkan manfaat untuk ummat."
@@ -32,7 +33,7 @@
                 </div>
 
                 {{-- Tombol Aksi Minimalis Putih --}}
-                <div class="flex flex-wrap gap-4 mb-4 sm:mb-4 md:mb-2">
+                <div class="flex items-center justify-center gap-4 mb-4 sm:mb-4 md:mb-2">
                     <a href="https://wa.me/6282329621484" target="_blank"
                         class="bg-white hover:bg-stone-100 text-stone-950 font-bold px-6 py-3 rounded-xl shadow-md transition-all duration-300 flex items-center gap-2 text-sm transform hover:-translate-y-0.5">
                         <iconify-icon icon="lucide:shopping-cart" class="text-base text-amber-600"></iconify-icon>

@@ -15,6 +15,7 @@ class InfosTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('address'),
                 TextColumn::make('phone_number'),
@@ -35,3 +36,4 @@ class InfosTable
             ]);
     }
 }
+

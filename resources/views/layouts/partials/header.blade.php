@@ -1,15 +1,15 @@
-<header class="bg-neutral shadow-md fixed top-0 left-0 right-0 z-[1000]">
+<header class="bg-neutral shadow-md fixed top-0 left-0 right-0 z-40">
 
     <div class="container mx-auto flex justify-between items-center py-4 px-8 lg:px-[30px] xl:px-[60px]">
 
         {{-- Logo --}}
         <div class="flex gap-4 items-center">
 
-            <img src="{{ asset('images/logo-alkautsar.png') }}" alt="Logo" class="w-10 lg:w-12">
+            <img src="{{ asset('images/logo-alkautsar.webp') }}" alt="Logo" class="h-10 w-10 lg:w-12 lg:h-12">
 
             <p class="hidden sm:block font-bold text-base sm:text-lg xl:text-xl leading-tight ">
                 <span class="text-secondary">Masjid</span>
-                <span class="text-primary">Al Kautsar Cempolorejo</span>
+                <span class="text-tertiary">Al Kautsar Cempolorejo</span>
             </p>
 
         </div>
@@ -115,7 +115,8 @@
 
                 {{-- Laporan --}}
                 <li>
-                    <a href="#" class="text-secondary font-semibold hover:text-primary transition">
+                    <a href="{{ route('financial-report') }}" class="{{ request()->routeIs('financial-report') ? 'text-primary' : 'text-secondary' }}
+                        font-semibold hover:text-primary transition">
                         Laporan Keuangan
                     </a>
                 </li>
@@ -133,7 +134,7 @@
         </nav>
 
         {{-- Mobile Button --}}
-        <button id="mobile-menu-button" class="lg:hidden text-secondary text-3xl flex items-center">
+        <button id="mobile-menu-button" aria-label="Toggle mobile menu" class="lg:hidden text-secondary text-3xl flex items-center">
 
             <iconify-icon icon="mdi:menu" class="transition-transform duration-300"></iconify-icon>
 
@@ -270,7 +271,8 @@
             </div>
 
             {{-- Laporan --}}
-            <a href="#" class="flex items-center gap-3 py-2.5 px-4 rounded-xl font-semibold text-secondary text-sm
+            <a href="{{ route('financial-report') }}" class="{{ request()->routeIs('financial-report') ? 'text-primary bg-primary/10' : 'text-secondary' }}
+                flex items-center gap-3 py-2.5 px-4 rounded-xl font-semibold text-sm
                 hover:bg-primary/10 hover:text-primary
                 active:scale-[0.98]
                 transition-all duration-200">

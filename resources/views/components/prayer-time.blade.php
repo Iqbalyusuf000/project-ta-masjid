@@ -2,10 +2,10 @@
 {{-- Penggunaan: @include('components.prayer-time') --}}
 
 <div id="prayer-widget"
-    class="flex flex-col lg:flex-row lg:items-center w-full bg-secondary rounded-xl border border-stone-200 shadow-sm px-4 sm: px-6 py-4 gap-4 lg:gap-0">
+    class="flex flex-col lg:flex-row lg:items-center w-full bg-secondary rounded-xl border border-stone-200 shadow-sm px-4 sm:px-6 py-4 gap-4 lg:gap-0">
 
     {{-- Icon + Waktu Saat Ini --}}
-    <div class="flex items-center justify-center gap-3 min-w-0 lg: min-w-[170px] shrink-0">
+    <div class="flex items-center justify-center gap-3 min-w-0 lg:min-w-[170px] shrink-0">
 
         <div
             class="w-10 h-10 sm:w-11 sm:h-11 bg-primary rounded-xl flex items-center justify-center text-white shrink-0">

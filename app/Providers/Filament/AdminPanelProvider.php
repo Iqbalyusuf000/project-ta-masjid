@@ -30,6 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('Masjid Al-Kautsar Cempolorejo')
             ->login()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('1s')
             ->colors([
                 'primary' => Color::hex('#B6771D'),
             ])

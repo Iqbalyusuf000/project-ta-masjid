@@ -20,4 +20,9 @@ class ZakatFitrah extends Model
         'zakat_status',
         'verified_at',
     ];
+    public function infaq()
+    {
+        return $this->hasOne(DonationTransaction::class, 'reference_id')
+                    ->where('reference_type', 'zakat_fitrah');
+    }
 }

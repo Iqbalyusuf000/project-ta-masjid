@@ -16,6 +16,7 @@ class KajianDetailsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('kajian.title')
                     ->label('Judul / Pokok Kajian')
@@ -56,3 +57,4 @@ class KajianDetailsTable
             ]);
     }
 }
+

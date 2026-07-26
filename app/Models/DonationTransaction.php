@@ -36,4 +36,14 @@ class DonationTransaction extends Model
     {
         return $this->belongsTo(User::class, 'verified_by');
     }
+
+    public function zakat_fitrah()
+    {
+        return $this->belongsTo(ZakatFitrah::class, 'reference_id');
+    }
+
+    public function itikaf_registration()
+    {
+        return $this->belongsTo(ItikafRegistration::class, 'reference_id');
+    }
 }
