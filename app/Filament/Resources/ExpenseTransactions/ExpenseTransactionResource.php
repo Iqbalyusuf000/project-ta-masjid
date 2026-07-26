@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Filament\Resources\ExpenseTransactions;
+
+use App\Filament\Resources\ExpenseTransactions\Pages\CreateExpenseTransaction;
+use App\Filament\Resources\ExpenseTransactions\Pages\EditExpenseTransaction;
+use App\Filament\Resources\ExpenseTransactions\Pages\ListExpenseTransactions;
+use App\Filament\Resources\ExpenseTransactions\Schemas\ExpenseTransactionForm;
+use App\Filament\Resources\ExpenseTransactions\Tables\ExpenseTransactionsTable;
+use App\Models\ExpenseTransaction;
+use BackedEnum;
+use UnitEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class ExpenseTransactionResource extends Resource
+{
+    protected static ?string $model = ExpenseTransaction::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowTrendingDown;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Keuangan Masjid';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $modelLabel = 'Pengeluaran';
+
+    protected static ?string $pluralModelLabel = 'Data Pengeluaran';
+
+    public static function form(Schema $schema): Schema
+    {
+        return ExpenseTransactionForm::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return ExpenseTransactionsTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index'  => ListExpenseTransactions::route('/'),
+            'create' => CreateExpenseTransaction::route('/create'),
+            'edit'   => EditExpenseTransaction::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getRecordRouteBindingEloquentQuery(): Builder
+    {
+        return parent::getRecordRouteBindingEloquentQuery()
+            ->withoutGlobalScopes([SoftDeletingScope::class]);
+    }
+}

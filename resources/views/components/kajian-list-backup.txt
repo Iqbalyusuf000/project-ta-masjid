@@ -1,0 +1,256 @@
+﻿<?php
+
+use Livewire\Component;
+use Livewire\WithPagination;
+use Livewire\Attributes\Url;
+
+new class extends Component {
+    use WithPagination;
+
+    #[Url]
+    public $search = '';
+
+    #[Url]
+    public $category = '';
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCategory()
+    {
+        $this->resetPage();
+    }
+
+    public function setCategory($slug)
+    {
+        $this->category = $slug;
+        $this->resetPage();
+    }
+
+    public function resetSearch()
+    {
+        $this->search = '';
+        $this->resetPage();
+    }
+
+    public function resetFilters()
+    {
+        $this->reset(['search', 'category']);
+        $this->resetPage();
+    }
+
+    public function with(): array
+    {
+        $query = \App\Models\KajianDetail::with(['kajian.kajianCategory', 'ustadz', 'location'])
+            ->whereHas('kajian', function ($q) {
+                $q->whereNull('deleted_at');
+            });
+
+        if ($this->category) {
+            $query->whereHas('kajian.kajianCategory', function ($q) {
+                $q->where('slug', $this->category);
+            });
+        }
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->whereHas('kajian', function ($q2) {
+                    $q2->where('title', 'like', '%' . $this->search . '%');
+                })->orWhere('sub_title', 'like', '%' . $this->search . '%')
+                  ->orWhereHas('ustadz', function ($q3) {
+                    $q3->where('name', 'like', '%' . $this->search . '%');
+                  });
+            });
+        }
+
+        $kajianDetails = $query->orderBy('date', 'asc')->paginate(9);
+        $categories = \App\Models\KajianCategory::orderBy('name')->get();
+
+        return [
+            'kajianDetails' => $kajianDetails,
+            'categories' => $categories,
+        ];
+    }
+}; ?>
+
+<main id="kajian-all" class="bg-slate-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {{-- Section Header --}}
+        <div class="text-center mb-10">
+            <span class="inline-block text-yellow-600 text-xs font-bold uppercase tracking-widest mb-3">Temukan Kajian</span>
+            <h2 class="font-raleway font-black text-3xl md:text-4xl text-slate-900">Jadwal Kajian Terlengkap</h2>
+            <p class="text-slate-500 text-sm mt-3 max-w-lg mx-auto">Cari kajian berdasarkan judul, nama ustadz, atau filter berdasarkan kategori.</p>
+        </div>
+
+        {{-- Search & Filter Bar --}}
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 mb-8">
+            <div class="flex flex-col md:flex-row gap-3 items-center">
+                {{-- Search Input --}}
+                <div class="relative flex-1 w-full">
+                    <iconify-icon icon="mdi:magnify" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl pointer-events-none"></iconify-icon>
+                    <input wire:model.live.debounce.400ms="search" type="search"
+                        placeholder="Cari kajian atau ustadz..."
+                        class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-yellow-400 focus:ring focus:ring-yellow-400/20 transition-all text-sm">
+                </div>
+                {{-- Reset Button --}}
+                @if($search || $category)
+                    <button wire:click="resetFilters"
+                        class="shrink-0 inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-slate-200 text-slate-600 hover:border-red-300 hover:text-red-600 text-sm font-semibold transition-all">
+                        <iconify-icon icon="mdi:close"></iconify-icon>
+                        Reset
+                    </button>
+                @endif
+            </div>
+
+            {{-- Category Filter Pills --}}
+            <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                <button type="button" wire:click="setCategory('')"
+                    class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-all {{ $category == '' ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-600' }}">
+                    Semua Kajian
+                </button>
+                @foreach($categories as $cat)
+                    <button type="button" wire:click="setCategory('{{ $cat->slug }}')"
+                        class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-all {{ $category == $cat->slug ? 'bg-yellow-500 text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-600' }}">
+                        {{ $cat->name }}
+                    </button>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Results Count --}}
+        <div class="flex items-center justify-between mb-6">
+            <p class="text-sm text-slate-500">
+                Menampilkan <span class="font-bold text-slate-800">{{ $kajianDetails->total() }}</span> kajian
+                @if($search) untuk "<span class="font-bold text-yellow-600">{{ $search }}</span>" @endif
+            </p>
+            <div wire:loading class="text-xs text-slate-400 flex items-center gap-2">
+                <iconify-icon icon="mdi:loading" class="animate-spin"></iconify-icon>
+                Memuat...
+            </div>
+        </div>
+
+        {{-- GRID LIST KAJIAN --}}
+        @if($kajianDetails->isEmpty())
+            <div class="text-center py-24 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                <div class="w-20 h-20 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto text-slate-300 mb-5">
+                    <iconify-icon icon="mdi:calendar-remove" class="text-4xl"></iconify-icon>
+                </div>
+                <h3 class="font-bold text-slate-800 text-xl mb-2">Belum Ada Jadwal Kajian</h3>
+                <p class="text-slate-500 text-sm max-w-sm mx-auto">Tidak ditemukan jadwal kajian yang cocok dengan pencarian atau filter Anda.</p>
+                <button type="button" wire:click="resetFilters"
+                    class="inline-flex items-center gap-2 mt-6 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold px-6 py-3 rounded-full transition-all text-sm">
+                    <iconify-icon icon="mdi:refresh"></iconify-icon>
+                    Lihat Semua Kajian
+                </button>
+            </div>
+        @else
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($kajianDetails as $detail)
+                    @php
+                        $categorySlug = $detail->kajian->kajianCategory->slug ?? '';
+                        $accentColor = match ($categorySlug) {
+                            'fiqih', 'fiqih-muamalah' => ['bg' => 'bg-emerald-500', 'text' => 'text-emerald-600', 'light' => 'bg-emerald-50 text-emerald-700 border-emerald-100'],
+                            'sirah-nabawiyah' => ['bg' => 'bg-amber-500', 'text' => 'text-amber-600', 'light' => 'bg-amber-50 text-amber-700 border-amber-100'],
+                            default => ['bg' => 'bg-yellow-500', 'text' => 'text-yellow-600', 'light' => 'bg-yellow-50 text-yellow-700 border-yellow-100']
+                        };
+                        $posterUrl = $detail->poster ? asset('storage/' . $detail->poster) : null;
+                        $isPast = \Carbon\Carbon::parse($detail->date)->isPast();
+                    @endphp
+
+                    <a href="{{ route('kajian.show', $detail->id) }}" wire:navigate
+                        class="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
+
+                        {{-- Card Thumbnail / Header --}}
+                        <div class="relative overflow-hidden h-44">
+                            @if($posterUrl)
+                                <img src="{{ $posterUrl }}" alt="{{ $detail->sub_title }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+                            @else
+                                <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-700">
+                                    <div class="absolute inset-0 opacity-10" style="background-image: url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");"></div>
+                                    <div class="flex items-center justify-center h-full">
+                                        <iconify-icon icon="mdi:book-open-variant" class="text-white/20 text-7xl"></iconify-icon>
+                                    </div>
+                                </div>
+                            @endif
+
+                            {{-- Badges --}}
+                            <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                                <span class="bg-white/90 backdrop-blur-sm {{ $accentColor['text'] }} text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-sm uppercase leading-none">
+                                    {{ $detail->kajian->kajianCategory->name ?? 'Kajian' }}
+                                </span>
+                                @if($detail->location->type === 'Online')
+                                    <span class="bg-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-sm flex items-center gap-1 leading-none">
+                                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span> LIVE
+                                    </span>
+                                @elseif($isPast)
+                                    <span class="bg-slate-700/80 backdrop-blur-sm text-white/70 text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-sm uppercase leading-none">
+                                        Selesai
+                                    </span>
+                                @endif
+                            </div>
+
+                            {{-- Ustadz Avatar + Name bottom of image --}}
+                            <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full {{ $accentColor['bg'] }} flex items-center justify-center text-white text-xs font-black shrink-0 shadow">
+                                    {{ substr($detail->ustadz->name ?? 'U', 0, 1) }}
+                                </div>
+                                <p class="text-white text-xs font-semibold drop-shadow-sm">{{ $detail->ustadz->name ?? '' }}</p>
+                            </div>
+                        </div>
+
+                        {{-- Card Body --}}
+                        <div class="p-5 flex-1 flex flex-col">
+                            <p class="text-[11px] font-bold uppercase tracking-wider {{ $accentColor['text'] }} mb-1">
+                                {{ Str::of($detail->kajian->type)->replace('_', ' ') ?? 'Kajian' }}
+                            </p>
+                            <h3 class="font-bold text-slate-900 text-base leading-snug line-clamp-2 group-hover:text-yellow-600 transition-colors duration-200 flex-1">
+                                {{ $detail->sub_title ?: $detail->kajian->title }}
+                            </h3>
+
+                            <div class="border-t border-slate-100 pt-4 mt-4 space-y-2">
+                                <div class="flex items-center gap-2 text-xs text-slate-500">
+                                    <iconify-icon icon="mdi:calendar" class="text-slate-400 shrink-0 text-base"></iconify-icon>
+                                    <span>{{ \Carbon\Carbon::parse($detail->date)->locale('id')->isoFormat('D MMM YYYY') }}
+                                        &bull;
+                                        @if($detail->time_type === 'fixed')
+                                            {{ \Carbon\Carbon::parse($detail->start_time)->format('H:i') }} WIB
+                                        @else
+                                            {{ $detail->time_phrase }}
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-slate-500">
+                                    <iconify-icon icon="mdi:map-marker" class="text-slate-400 shrink-0 text-base"></iconify-icon>
+                                    <span class="truncate">{{ $detail->location->name ?? '' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 flex items-center justify-between">
+                                <span class="text-[10px] font-bold {{ $accentColor['light'] }} border px-2.5 py-1 rounded-full uppercase tracking-wide">
+                                    Gratis
+                                </span>
+                                <span class="text-xs font-semibold text-slate-500 group-hover:text-yellow-600 flex items-center gap-1 transition-colors">
+                                    Lihat Detail
+                                    <iconify-icon icon="mdi:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        @endif
+
+        {{-- Pagination --}}
+        @if($kajianDetails->hasPages())
+            <div class="mt-12 flex justify-center">
+                {{ $kajianDetails->links() }}
+            </div>
+        @endif
+
+    </div>
+</main>

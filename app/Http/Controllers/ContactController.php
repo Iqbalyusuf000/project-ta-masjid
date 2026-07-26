@@ -34,7 +34,13 @@ class ContactController extends Controller
                 abort(422, 'Validasi error!');
             }
 
-            Contact::create($validator->validated());
+            $contact = Contact::create($validator->validated());
+
+            \Filament\Notifications\Notification::make()
+                ->title('Pesan Baru Masuk')
+                ->body("Terdapat pesan kontak baru dari {$contact->name} ({$contact->email}).")
+                ->success()
+                ->sendToDatabase(\App\Models\User::all());
 
             return redirect()->route('contact.index')->with('success', 'Pesan berhasil dikirim.');
         } catch (\Throwable $th) {

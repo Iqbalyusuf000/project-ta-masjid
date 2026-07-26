@@ -15,6 +15,9 @@ class DonationCategory extends Model
         'name',
         'description',
         'is_active',
+        'icon',
+        'target_amount',
+        'badge',
     ];
 
     public function scopeActive($query)

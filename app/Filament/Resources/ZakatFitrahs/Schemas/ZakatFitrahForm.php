@@ -43,6 +43,7 @@ class ZakatFitrahForm
                     ->options([
                         'pending' => 'Pending',
                         'confirmed' => 'Confirmed',
+                        'failed'    => 'Failed',
                     ])
                     ->required(),
             ]);

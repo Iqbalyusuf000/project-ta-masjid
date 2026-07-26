@@ -18,6 +18,7 @@ class ZakatFitrahsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('zakat_code')
                     ->label('Kode Zakat')
@@ -36,10 +37,31 @@ class ZakatFitrahsTable
                     ->sortable(),
                 TextColumn::make('rice_total')
                     ->label('Jumlah Beras')
+                    ->sortable()
+                    ->formatStateUsing(fn (string $state): string => $state . ' Kg'),
+                TextColumn::make('infaq.total_amount')
+                    ->label('Infaq Tambahan')
+                    ->money('idr')
+                    ->default('Rp 0')
                     ->sortable(),
                 IconColumn::make('zakat_status')
                     ->label('Status Transaksi')
                     ->boolean()
+                    ->sortable(),
+                TextColumn::make('zakat_status')
+                    ->label('Status Zakat')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'confirmed' => 'success',
+                        'pending'   => 'warning',
+                        'failed'    => 'danger',
+                        default     => 'warning',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'confirmed' => 'Dikonfirmasi',
+                        'pending' => 'Pending',
+                        default     => 'Pending',
+                    })
                     ->sortable(),
             ])
             ->filters([
@@ -57,3 +79,4 @@ class ZakatFitrahsTable
             ]);
     }
 }
+

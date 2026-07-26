@@ -37,7 +37,7 @@
 
         $galeri = [
             asset('images/history-1.jpg'),
-            asset('images/masjid-alkautsar.jpeg'),
+            asset('images/masjid-alkautsar.webp'),
             asset('images/galery-1.jpeg'),
             asset('images/galery-2.jpeg'),
             asset('images/galery-3.jpeg'),

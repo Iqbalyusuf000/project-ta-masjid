@@ -1,40 +1,48 @@
-*.log
-.DS_Store
-.env
-.env.backup
-.env.production
-.phpactor.json
-.phpunit.result.cache
-/.fleet
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
-/auth.json
+# Application specific
+/vendor
 /node_modules
 /public/build
 /public/hot
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
-Homestead.json
-Homestead.yaml
-Thumbs.db
-
-/node_modules
-/vendor
-/public/storage
-/storage/*.key
 /storage/app/*
+!/storage/app/.gitignore
+/storage/app/public/*
+!/storage/app/public/.gitignore
 /storage/framework/*
+!/storage/framework/.gitignore
 /storage/logs/*
-/bootstrap/cache
+!/storage/logs/.gitignore
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
 
+# Environment files
 .env
 .env.backup
-.phpunit.result.cache
+.env.production
+.env.testing
 
+# Testing & custom
+.phpunit.result.cache
+.phpunit.cache
+/docs
+
+# Development tools & IDEs
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+.phpactor.json
+/auth.json
+Homestead.json
+Homestead.yaml
+
+# System files & logs
+*.log
 npm-debug.log
 yarn-error.log
+.DS_Store
+Thumbs.db
+desktop.ini

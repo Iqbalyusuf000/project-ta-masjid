@@ -13,7 +13,7 @@
                     {{--
                     <iconify-icon icon="mdi:bookmark" class="text-primary text-3xl">
                     </iconify-icon> --}}
-                    <img src="{{ asset('images/logo-alkautsar.png') }}" alt="Logo" class="w-10 lg:w-12">
+                    <img src="{{ asset('images/logo-alkautsar.webp') }}" alt="Logo" class="w-10 lg:w-12">
 
                     <h3 class="font-raleway text-2xl font-bold text-primary hover:text-neutral transition-all">
                         Masjid Al Kautsar Cempolorejo
@@ -135,20 +135,21 @@
                 <div class="flex gap-6">
 
                     <a href="https://www.instagram.com/masjidalkautsarcmplrjo/" target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer" aria-label="Instagram Masjid Al-Kautsar"
                         class="w-11 h-11 rounded-xl border border-primary/30 flex justify-center items-center text-primary hover:bg-primary hover:text-white transition-all">
 
                         <iconify-icon icon="mdi:instagram" class="text-xl"></iconify-icon>
                     </a>
 
                     <a href="https://www.youtube.com/@MasjidAlkautsarCempolorejo" target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer" aria-label="YouTube Masjid Al-Kautsar"
                         class="w-11 h-11 rounded-xl border border-primary/30 flex justify-center items-center text-primary hover:bg-primary hover:text-white transition-all">
 
                         <iconify-icon icon="mdi:youtube" class="text-xl"></iconify-icon>
                     </a>
 
                     <a href="https://www.tiktok.com/@masjidalkautsarcmplrjo" target="_blank" rel="noopener noreferrer"
+                        aria-label="TikTok Masjid Al-Kautsar"
                         class="w-11 h-11 rounded-xl border border-primary/30 flex justify-center items-center text-primary hover:bg-primary hover:text-white transition-all">
 
                         <iconify-icon icon="akar-icons:tiktok-fill" class="text-xl"></iconify-icon>

@@ -19,7 +19,7 @@ class ZakatController extends Controller
     {
         $setting = DonationSetting::first();
         $programs = DonationCategory::where('is_active', true)->get();
-        $testimoni = Testimonial::where('is_active', true)->get();
+        $testimoni = Testimonial::query()->where('is_active', true)->inRandomOrder()->limit(6)->get();
         $faqs = Faq::where('is_active', true)->get();
 
         // Statistics
@@ -118,6 +118,19 @@ class ZakatController extends Controller
                     'account_name' => $setting->account_name ?? null,
                 ];
             }
+
+            // Send Notification to all Admins
+            $notificationBody = "Pendaftaran Zakat Fitrah baru atas nama {$request->nama_pembayar} sejumlah {$riceTotal} kg.";
+            if ($infaqData !== null) {
+                $totalFormatted = number_format($totalAmount, 0, ',', '.');
+                $notificationBody .= " Beliau juga menyertakan Infaq sebesar Rp {$totalFormatted}.";
+            }
+
+            \Filament\Notifications\Notification::make()
+                ->title('Zakat Fitrah Baru Masuk')
+                ->body($notificationBody)
+                ->success()
+                ->sendToDatabase(\App\Models\User::all());
 
             DB::commit();
 
