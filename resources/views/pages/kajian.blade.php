@@ -52,8 +52,13 @@
 
                             <div class="flex items-center gap-2 mb-5">
                                 <span class="flex items-center gap-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
-                                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping"></span>
-                                    Agenda Terdekat
+                                    @if($isUpcoming)
+                                        <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping"></span>
+                                        Agenda Terdekat
+                                    @else
+                                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                                        Kajian Terakhir
+                                    @endif
                                 </span>
                             </div>
 
@@ -104,22 +109,12 @@
                         </div>
                     </div>
                 @else
-                    {{-- Decorative stats if no event --}}
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
-                            <iconify-icon icon="mdi:mosque" class="text-yellow-400 text-3xl mb-2"></iconify-icon>
-                            <p class="text-white font-bold text-xl">Setiap Ahad</p>
-                            <p class="text-slate-400 text-xs mt-1">Kajian Rutin</p>
-                        </div>
-                        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
-                            <iconify-icon icon="mdi:book-open" class="text-emerald-400 text-3xl mb-2"></iconify-icon>
-                            <p class="text-white font-bold text-xl">Gratis</p>
-                            <p class="text-slate-400 text-xs mt-1">Terbuka Umum</p>
-                        </div>
-                        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center col-span-2">
-                            <iconify-icon icon="mdi:microphone" class="text-blue-400 text-3xl mb-2"></iconify-icon>
-                            <p class="text-white font-bold text-xl">Ustadz Berpengalaman</p>
-                            <p class="text-slate-400 text-xs mt-1">Dipilih & Berkualitas</p>
+                    {{-- Tidak ada data kajian sama sekali --}}
+                    <div class="lg:justify-self-end w-full max-w-md">
+                        <div class="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-7 shadow-2xl text-center">
+                            <iconify-icon icon="mdi:calendar-blank-outline" class="text-6xl text-white/20 mb-4 block"></iconify-icon>
+                            <p class="text-white font-bold text-lg">Belum Ada Kajian</p>
+                            <p class="text-slate-400 text-sm mt-2">Program kajian akan segera hadir. Pantau terus halaman ini.</p>
                         </div>
                     </div>
                 @endif

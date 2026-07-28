@@ -12,7 +12,12 @@ class CompressResponse
     {
         $response = $next($request);
 
-        // Only compress HTML text responses
+        // Skip semua request Livewire (path /livewire/*) agar tidak merusak JSON response-nya
+        if ($request->is('livewire/*') || $request->header('X-Livewire')) {
+            return $response;
+        }
+
+        // Skip jika response bukan HTML (misal: JSON, binary, dll)
         $contentType = $response->headers->get('Content-Type', '');
         $isHtml = str_contains($contentType, 'text/html');
 

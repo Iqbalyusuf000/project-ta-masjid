@@ -13,15 +13,27 @@ class KajianController extends Controller
      */
     public function index(Request $request)
     {
-        // Get the closest upcoming agenda (where date >= today)
+        // Coba ambil kajian yang akan datang (>= hari ini)
         $agendaTerdekat = KajianDetail::with(['kajian.kajianCategory', 'ustadz', 'location'])
             ->where('date', '>=', now()->toDateString())
             ->orderBy('date', 'asc')
             ->orderBy('start_time', 'asc')
             ->first();
 
+        $isUpcoming = true;
+
+        // Jika tidak ada kajian mendatang, tampilkan kajian terakhir yang ada
+        if (! $agendaTerdekat) {
+            $agendaTerdekat = KajianDetail::with(['kajian.kajianCategory', 'ustadz', 'location'])
+                ->orderBy('date', 'desc')
+                ->orderBy('start_time', 'desc')
+                ->first();
+            $isUpcoming = false;
+        }
+
         return view('pages.kajian', [
             'agendaTerdekat' => $agendaTerdekat,
+            'isUpcoming'     => $isUpcoming,
         ]);
     }
 
