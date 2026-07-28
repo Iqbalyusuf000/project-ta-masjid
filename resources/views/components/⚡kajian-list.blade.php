@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,26 +27,32 @@ new class extends Component {
     }
 
     public function with(): array {
-        $query = \App\Models\KajianDetail::with(['kajian.kajianCategory', 'ustadz', 'location'])
-            ->whereHas('kajian', function ($q) { $q->whereNull('deleted_at'); });
+        $search = $this->search;
+        $category = $this->category;
 
-        if ($this->category) {
-            $query->whereHas('kajian.kajianCategory', function ($q) {
-                $q->where('slug', $this->category);
+        $query = \App\Models\KajianDetail::with(['kajian.kajianCategory', 'ustadz', 'location'])
+            ->whereHas('kajian', function ($q) {
+                // Hanya tampilkan kajian yang induknya tidak di-soft delete
+                $q->whereNull('deleted_at');
+            });
+
+        if ($category) {
+            $query->whereHas('kajian.kajianCategory', function ($q) use ($category) {
+                $q->where('slug', $category);
             });
         }
 
-        if ($this->search) {
-            $query->where(function ($q) {
-                $q->whereHas('kajian', fn($q2) => $q2->where('title', 'like', '%' . $this->search . '%'))
-                  ->orWhere('sub_title', 'like', '%' . $this->search . '%')
-                  ->orWhereHas('ustadz', fn($q3) => $q3->where('name', 'like', '%' . $this->search . '%'));
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('kajian', fn($q2) => $q2->where('title', 'like', '%' . $search . '%'))
+                  ->orWhere('sub_title', 'like', '%' . $search . '%')
+                  ->orWhereHas('ustadz', fn($q3) => $q3->where('name', 'like', '%' . $search . '%'));
             });
         }
 
         return [
-            'kajianDetails' => $query->orderBy('date', 'asc')->paginate(9),
-            'categories' => \App\Models\KajianCategory::orderBy('name')->get(),
+            'kajianDetails' => $query->orderBy('date', 'desc')->orderBy('start_time', 'desc')->paginate(9),
+            'categories'    => \App\Models\KajianCategory::orderBy('name')->get(),
         ];
     }
 }; ?>
@@ -95,7 +101,7 @@ new class extends Component {
                 Menampilkan <span class="font-bold text-slate-800">{{ $kajianDetails->total() }}</span> kajian
                 @if($search) untuk "<span class="font-bold text-yellow-600">{{ $search }}</span>" @endif
             </p>
-            <div wire:loading class="text-xs text-slate-400 flex items-center gap-2">
+            <div wire:loading wire:target="search,setCategory,resetFilters" class="text-xs text-slate-400 flex items-center gap-2">
                 <iconify-icon icon="mdi:loading" class="animate-spin"></iconify-icon>
                 Memuat...
             </div>
@@ -146,7 +152,7 @@ new class extends Component {
                                 <span class="bg-white/90 backdrop-blur-sm {{ $accentColor['text'] }} text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-sm uppercase leading-none">
                                     {{ $detail->kajian->kajianCategory->name ?? 'Kajian' }}
                                 </span>
-                                @if($detail->location->type === 'Online')
+                                @if(strtolower(optional($detail->location)->type ?? '') === 'online')
                                     <span class="bg-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 leading-none">
                                         <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span> LIVE
                                     </span>
